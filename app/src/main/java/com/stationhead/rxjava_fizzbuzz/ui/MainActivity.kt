@@ -14,7 +14,8 @@ class MainActivity : AppCompatActivity() {
 
     private val model: MainActivityViewModel by lazy {
         ViewModelProvider(this).get(
-                MainActivityViewModel::class.java)
+            MainActivityViewModel::class.java
+        )
     }
 
     // Phase-1 objective:
@@ -35,26 +36,27 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         model.filteredAmber
-                .subscribeBy(
-                        onNext = {
-                            Log.i("Test", "AmberLight: $it")
-                            amberLight.isActivated = true
-                        })
-
-        model.filteredGreen
-                .subscribeBy(
-                        onNext = {
-                            Log.i("Test", "greenLight: $it")
-                            greenLight.isActivated = true
-                        })
-        model.ticker
-                .observeOn(AndroidSchedulers.mainThread())
-                .bindToLifecycle(this)
-                .subscribe {
+            .observeOn(AndroidSchedulers.mainThread())
+            .bindToLifecycle(this)
+            .subscribeBy(
+                onNext = {
+                    Log.i("Test", "AmberLight: $it")
                     when (it) {
                         MainActivityViewModel.FlashState.ON -> amberLight.isActivated = true
                         MainActivityViewModel.FlashState.OFF -> amberLight.isActivated = false
                     }
-                }
+                })
+
+        model.filteredGreen
+            .observeOn(AndroidSchedulers.mainThread())
+            .bindToLifecycle(this)
+            .subscribeBy(
+                onNext = {
+                    Log.i("Test", "greenLight: $it")
+                    when (it) {
+                        MainActivityViewModel.FlashState.ON -> greenLight.isActivated = true
+                        MainActivityViewModel.FlashState.OFF -> greenLight.isActivated = false
+                    }
+                })
     }
 }
