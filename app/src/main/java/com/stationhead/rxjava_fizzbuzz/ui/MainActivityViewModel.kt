@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.stationhead.rxjava_fizzbuzz.usecase.TickProvider
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.Observables
+import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 class MainActivityViewModel : ViewModel() {
@@ -28,6 +30,8 @@ class MainActivityViewModel : ViewModel() {
     val filteredGreen = count.filter {
         it % 5 == 0
     }.flash()
+
+    val fizzBuzz = Observables.combineLatest(filteredAmber, filteredGreen)
 
     private fun Observable<*>.flash() = flatMap { _ ->
         Observable.just(FlashState.ON)

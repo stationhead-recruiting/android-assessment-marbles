@@ -58,5 +58,22 @@ class MainActivity : AppCompatActivity() {
                         MainActivityViewModel.FlashState.OFF -> greenLight.isActivated = false
                     }
                 })
+
+        model.fizzBuzz
+            .observeOn(AndroidSchedulers.mainThread())
+            .bindToLifecycle(this)
+            .subscribeBy(
+                onNext = { (amberStatus, greenStatus) ->
+                    Log.i("Test", "amberState: $amberStatus greenState: $greenStatus")
+                    val text = when {
+                        amberStatus == MainActivityViewModel.FlashState.ON &&
+                                greenStatus == MainActivityViewModel.FlashState.ON -> "FizzBuzz"
+                        amberStatus == MainActivityViewModel.FlashState.ON -> "Fizz"
+                        greenStatus == MainActivityViewModel.FlashState.ON -> "Buzz"
+                        else -> ""
+                    }
+                    statusLabel.text = text
+                }
+            )
     }
 }
