@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Stationhead_Assessment">
+        android:theme="@style/Theme.RxJava_FizzBuzz">
 
         <activity
             android:name="com.stationhead.rxjava_fizzbuzz.ui.MainActivity"
