@@ -15,7 +15,7 @@ class MainActivityViewModel : ViewModel() {
 
     private val disposables by lazy { CompositeDisposable() }
 
-    val ticker: Observable<Unit> = TickProvider().getTicks()
+    val ticker = TickProvider().getTicks().flash()
 
     val count: Observable<Int> = ticker.scan(0) { accumulator, current  ->
         accumulator + 1
@@ -28,5 +28,10 @@ class MainActivityViewModel : ViewModel() {
     val filteredGreen= count.filter {
         it % 5 == 0
     }
+    private fun Observable<*>.flash() = flatMap { _ ->
+        Observable.just(FlashState.ON)
+            .mergeWith(Observable.timer(400, TimeUnit.MILLISECONDS).map { _ -> FlashState.OFF })
+    }
 
+    enum class FlashState {ON, OFF}
 }
