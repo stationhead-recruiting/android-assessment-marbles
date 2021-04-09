@@ -50,4 +50,20 @@
         app:layout_constraintRight_toRightOf="@id/amberLight"
         app:layout_constraintLeft_toLeftOf="@id/amberLight"
         />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="@+id/greenLight"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/amberLight"
+        app:layout_constraintTop_toBottomOf="@id/greenLight"
+        android:id="@+id/statusLabel"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:textSize="36dp"
+        android:fontFamily="casual"
+        tools:text="FizzBuzz" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,9 +5,9 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.stationhead.rxjava_fizzbuzz.R
-import io.reactivex.rxkotlin.subscribeBy
 import com.trello.rxlifecycle2.android.lifecycle.kotlin.bindToLifecycle
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -89,6 +89,10 @@ class MainActivity : AppCompatActivity() {
         rightPicker.minValue = 5
         rightPicker.maxValue = 13
         rightPicker.wrapSelectorWheel = false
+
+        // emit min values to set as default
+        model.leftPickerValueUpdated(leftPicker.minValue)
+        model.rightPickerValueUpdated(rightPicker.minValue)
 
         leftPicker.setOnValueChangedListener { _, _, newVal ->
             model.leftPickerValueUpdated(newVal)
